@@ -3,10 +3,11 @@ import Sequelize from 'sequelize';
 import User from '../app/models/User';
 import Student from '../app/models/Student';
 import Plan from '../app/models/Plan';
+import Enrollment from '../app/models/Enrollment';
 
 import databaseConfig from '../config/database';
 
-const models = [User, Student, Plan];
+const models = [User, Student, Plan, Enrollment];
 
 class Database {
   constructor() {
@@ -16,7 +17,18 @@ class Database {
   init() {
     this.connection = new Sequelize(databaseConfig);
 
-    models.map(model => model.init(this.connection));
+    /*
+     * O código abaixo está apresentando o seguinte erro:
+     *Cannot read property 'associate' of undefined
+     * substituido pelo codigo abaixo
+     * Pesquisar para entender o porque
+     */
+    models
+      .map(model => model.init(this.connection))
+      .map(
+        model =>
+          model && model.associate && model.associate(this.connection.models)
+      );
   }
 }
 
