@@ -1,9 +1,11 @@
 import * as Yup from 'yup';
 import { startOfDay, parseISO, addMonths } from 'date-fns';
-
 import Enrollment from '../models/Enrollment';
 import Student from '../models/Student';
 import Plan from '../models/Plan';
+
+import NewEnrollmentMail from '../jobs/NewEnrollmentMail';
+import Queue from '../../lib/Queue';
 
 class EnrollmentController {
   async show(req, res) {
@@ -110,6 +112,13 @@ class EnrollmentController {
       start_date: ajusted_start_date,
       end_date,
       price,
+    });
+
+    // Add mail in the Queue
+    await Queue.add(NewEnrollmentMail.key, {
+      newEnrollment,
+      student,
+      plan,
     });
 
     return res.json(newEnrollment);
