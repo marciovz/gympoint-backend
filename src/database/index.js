@@ -17,12 +17,6 @@ class Database {
   init() {
     this.connection = new Sequelize(databaseConfig);
 
-    /*
-     * O código abaixo está apresentando o seguinte erro:
-     *Cannot read property 'associate' of undefined
-     * substituido pelo codigo abaixo
-     * Pesquisar para entender o porque
-     */
     models
       .map(model => model.init(this.connection))
       .map(
