@@ -1,4 +1,4 @@
 export default {
-  secret: '93caa525136bac45b8514e12a2be0262', // gymPoint
+  secret: process.env.APP_SECRET,
   expiresIn: '24h',
 };
