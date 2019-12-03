@@ -22,6 +22,7 @@ class EnrollmentController {
         'price',
         'created_at',
         'updated_at',
+        'active',
       ],
       include: [
         {
@@ -49,6 +50,7 @@ class EnrollmentController {
         'price',
         'created_at',
         'updated_at',
+        'active',
       ],
       include: [
         {
