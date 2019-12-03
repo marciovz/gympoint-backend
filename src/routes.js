@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
-import StudentController from './app/controllers/StundentController';
+import StudentController from './app/controllers/StudentController';
 import PlanController from './app/controllers/PlanController';
 import EnrollmentController from './app/controllers/EnrollmentController';
 import CheckinController from './app/controllers/CheckinController';

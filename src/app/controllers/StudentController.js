@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import * as Yup from 'yup';
 
 import Student from '../models/Student';
@@ -44,7 +45,20 @@ class StudentController {
 
   async show(req, res) {
     try {
-      const students = await Student.findAll();
+      const queryName = req.query.name;
+
+      const objQuery = queryName
+        ? {
+            where: {
+              name: {
+                [Op.iLike]: `%${queryName}%`,
+              },
+            },
+          }
+        : {};
+
+      const students = await Student.findAll(objQuery);
+
       return res.json(students);
     } catch (err) {
       return res.status(500).json({ error: 'Can not read database.' });
